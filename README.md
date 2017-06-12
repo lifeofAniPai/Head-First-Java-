@@ -1,4 +1,3 @@
-# Head-First-Java-
-Notes
+Head First
 
 basic notes from the book
