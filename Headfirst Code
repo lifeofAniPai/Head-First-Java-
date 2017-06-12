@@ -1,0 +1,1016 @@
+public class Doctor {
+  boolean worksAtHospital;
+  void treatPatient() // perform checkup
+  {
+
+  }
+}
+public class FamilyDoctor extends Doctor {
+  boolean makesHouseCalls;
+  void giveAdvice() // give homespun advice
+}
+public class Surgeon extends Doctor {
+  void treatPatient() // perform surgery
+  {
+
+  }
+  void makeIncision() // make Incision
+  {
+
+  }
+}
+
+// Polymorphism example
+
+Animal[] animals = new Animal[5]; // can put any subclass of animal in array
+animals[0] = new Dog();
+animals[1] = new Cat();
+animals[2] = new Wolf();
+animals[3] = new Hippo();
+animals[4] = new Lion();
+
+for (int i = 0; i < animals.length; i++) {
+  animals[i].eat(); // as the loop iterates you get different methods
+  animals[i].roam();
+}
+// You can have polymorphic arguments and return types
+
+class Vet {
+  public void giveShot(Animal a) // animal parameters can take any animal type into argument
+  {
+    a.makeNoise();
+  }
+}
+
+class petOwner {
+  public void Start() {
+    Vet v = new Vet();
+    Dog d = new Dog(); // vet's give shot can take any Animal you give it
+    Hippo h = new Hippo();
+    v.giveShot(d); // dog's makeNoise runs
+    v.giveShot(h);
+  }
+}
+
+// method overloading
+
+public class Overloads {
+  String uniqueID;
+
+  public int addNums(int a, int b) {
+    return a+b;
+  }
+  public double addNums(double a, double b) {
+    return a+b;
+  }
+  public void setUniqueID(String theID){
+    uniqueID = theID;
+  }
+  public void setUniqueID(int ssNumber){
+    String numString = "" + ssNumber;
+    setUniqueID(numString);
+  }
+}
+// the return type can be different
+// You can't change only the return type
+// You can vary the access levels in any direction
+
+// Polymorphism in action
+
+public class myDogList {
+  private Dog [] dogs = new Dog[5];
+  private int nextIndex = 0;
+
+  public void(Dog d) { // simple add dog array
+    if (nextIndex < dogs.length)
+        dogs[nextIndex] = d;
+        System.out.println("Dog added at" + nextIndex);
+        nextIndex++;
+  }
+}
+// uh oh now we need to keep cats as well
+// so we can make a hetero animal class that takes any kind of animal subclass
+
+public class myAnimalList {
+    private Animal[] animals = new Animal[5];
+    private int nextIndex = 0;
+
+    public void add(Animal a) {
+        if (nextIndex < animals.length)
+       {
+             animals[nextIndex] = a;
+             System.out.println("Animal added at" + nextIndex)
+              nextIndex++;
+       }
+    }
+
+public class AnimalTestDrive {
+    public static void main(String [] args) {
+        Dog a = new Dog();
+        Cat a = new Cat();
+        list.add(a);
+        list.add(c);
+      }  // adding these to the list
+    }
+
+        abstract class Report {
+          void runReport() { // superclass version of the method that does important stuff
+            // set up report
+          }
+          void printReport() {
+            // generic painting
+          }
+
+          class BuzzwordsReport extends Report {
+
+            void runReport() {
+              super.runReport(); // call superclass version then come back and do some subclass-specific stuff
+              buzzwordComplicance();
+              printReport();
+            }
+          }
+            void buzzwordComplicance() {...}
+        }
+
+        /*Code Snippets
+        // this prints out %java of 76
+        // 5 class Acts
+        // 7 class Clowns
+         7 class Of76 */
+
+public class Of76 extends Clowns {
+  public static void main(String [] args) {
+    Nose [] i = new Nose[3]; // making the array
+      i[0] = new Acts(); // putting in the vars
+      i[1] = new Clowns();
+      i[2] = new Of76();
+      for (int x = 0; x < 3; x++) { // this prints the items in array Nose
+        System.out.println( i[x].iMethod()  + " " + i[x].getClass() ); // iMethod is the method of the array
+      }
+  }
+}
+
+interface Nose {
+    public int iMethod();
+}
+abstract class Picasso implements Nose {
+    public int iMethod() {
+      return 7;
+    }
+class Clowns extends Picasso { }
+
+class Acts extends Picasso {
+  public int iMethod() {
+    return 5;
+  }
+}
+}
+
+// constructing duck state
+public class Duck {
+  int size;
+
+  public Duck(int duckSize) { // adding int parameter to the constructor
+    System.out.println("Quack");
+    size = duckSize; // using argument value to set the size instance variable
+    System.out.println("size is" + size);
+  }
+}
+
+public class UseADuck {
+  public static void main(String [] args) {
+    Duck d = new Duck(42); // passing value to constructor
+  }
+}
+
+// comparing static versus non static
+
+public class Song {
+  String title;
+  public Song(String t)
+    title = t;
+}
+public void play() {
+  Soundplayer player = new Soundplayer();
+  player.playSound(title); // current value of title is the song that plays when you call play
+}
+
+// static method
+
+public static int min(int a, int b) {
+ // returns least of a and b using the min function within java
+ }
+// Math.min(43,36)
+\
+
+public class Duck {
+  private int size;
+  private static int duckCount = 0; // static duckCount is initialized only when class is first loaded, not each time a new instance is made
+
+  public Duck() {
+    duckCount++; // keep implementing each time the Duck class is called because the static var won't reset to 0
+  }
+
+  public void setSize(int s)
+      size = s;
+}
+  public int getSize() {
+    return size;
+  }
+
+  /* initializing a static var
+          Static vars are initialized when a class is loaded which is when the JVM starts to load it
+          Generally the JVM decides it's time to load a class when somebody's trying to
+          make a new instance of the class either for the first time or use a static method or
+          a method of the class.
+
+          2 Guarantees of static initilization:
+
+          - Static vars in a class are initialized before any object of that class can be created
+          - Static vars in a class are initialized before any static method of the class runs
+          */
+
+  class Player {
+    static int playerCount = 0; // initialized when the class is loaded, Explicity initialized it to 0
+    private String name;
+    public Player(string n) {
+     int name = n;
+          playerCount++;
+    }
+  }
+
+  public class PlayerTestDrive {
+    public static void main(String [] args) {
+      System.out.println(Player.playerCount);
+      Player one = new Player("Tiger Woods");
+      System.out.println(Player.playerCount); // access a static variable just like a static method - with the class name
+    }
+  }
+
+  /* static final vars are constants
+            public static final double PI = 3.14159265
+            marked public so accessible by any Code
+            marked static so you dont need an instance of Math
+            marked final because PI doesnt change and constant var names should be in all caps
+            */
+
+  // final method means you cant override the class and final class means you  cant extend it so make a subclass
+
+  // wrapping a primitive
+
+    int x = 32;
+Arraylist list = new Arraylist();
+    list.add(x); // this wont work because theres no add int method in ArrayList that takes an int
+
+  /* Theres a wrapper  class for every primitive type and since the classes are in java lang package you dont need to import them
+ */
+
+ // Wrapping a value
+ int i = 288;
+ Integer iWrap = new Integer(i); // give primitive to wrapper constructor
+
+ // unwrapping a value
+ int unWrapped = iWrap.intValue(); // All wrappers work like this
+
+ // When u need to treat a primitive like an obj wrap it
+
+ public class TestBox {
+   Integer i;
+   int j;
+
+   public static void main(String [] args) {
+     Testbox t = new Testbox;
+     t.go();
+
+  public void go() {
+    j=i; // null pointer exception
+    System.out.println(j);
+    System.out.println(i);
+  }
+   }
+ }
+
+ // Converting a String into a primitive value
+
+ String s = "2";
+ int x = Integer.parseInt(s);
+ double d = Double.parseDouble("420.24");
+ boolean b = Boolean.parseBoolean("True");
+// however if you try to do this
+String t = "two";
+int y = Integer.parseInt(t); // this compiles but creates a runtime error as anyhting that cant be parsed as a number will cause a numberFormatException
+
+// Every method or constructor that parses a String can throw a numberFormatException as it's a runtime exception so you dont have to declare or handle it but you might want to
+
+// And now in reverse.. turning a primitive number into a String
+
+double d = 42.5;
+String doubleString = "" + d; // anything added to a String becomes String-ified
+
+double d = 42.5;
+String doubleString = Double.toString(d); // another way to do it using a static method in class Double
+
+// Number Formatting
+
+// Formatting a number to use commas
+
+public class TestFormats {
+  public static void main(String [] args) {
+    String s = String.format("%, d", 1000)
+    System.out.println(s);
+    }
+}
+/* Formatting Deconstructed
+The percent says "insert argument here" and format it using these instructions
+
+format(" I have %.2f bugs to fix.", 476578.09876);
+
+this outputs: I have 476578.10 bugs to fix.
+*/
+
+// Working with dates -- use java.util.Calendar for date manipulation
+// getting an object that extends Calendar
+
+// this wont works
+Calendar cal = new Calendar();
+// Instead use the static "getInstace() method"
+Calendar cal = Calendar.getInstance(); // just invoking a static method
+
+/* You cant get an instance of Calendar but you can get an instance of a concrete
+Calendar subclass
+
+ Working with Calendar Objects
+
+ Fields hold state - A Calendar object has many fields that are used to represent aspects
+ of its ultimate state, its date and time. For instance, you can get and set a Calendar's year or month.
+
+ Dates and times can be incremented - The Calendar class has methods that allow you
+ to add and subtract values from various fields, fr example "add one to the month"
+
+ Dates and Times can be represnted in miliseconds. The Calendar class lets you
+ convert your dates into and out of a mili precision.
+*/
+ // An example
+
+ Calendar c = Calendar.getInstance();
+ c.set(2004,0,7,15,40); // set time to jan 7, 3:40
+ long day1 = c.getTimeInMillis();
+ day1 += 1000 * 60 * 60
+ c.SetTimeInMillis(day1); // add an hours worth of millis then update the time
+ System.out.println("new hour " + c.get(c.HOUR_OF_DAY));
+ c.add(c.DATE, 35); // add 35 days to date which should move us to feb
+ System.out.println("roll 35 days" +c.getTime());
+ c.set(c.Date, 1); // not incrementing just doing a set of the date
+
+ // even more statics - static imports
+
+ // Be the Compiler
+
+ class StaticSuper {
+   static {
+     System.out.println("super static block");
+   }
+   StaticSuper {  // because this is a constructor needs to be StaticSuper()
+     System.out.println("super constructor");
+   }
+ }
+
+ public class StaticTest extends StaticSuper {
+   static int rand;
+
+   static {
+     rand = (int) (Math.random() * 6);
+     System.out.println("static block" + rand);
+   }
+
+   StaticTest() {
+     System.out.println("constructor");
+   }
+
+   public static void main(String [] args) {
+     System.out.println("in main");
+     StaticTests st = new StaticTests();
+   }
+ }
+
+// lunar code magnets
+import java.util.*;
+import java.io.*;
+import static java.lang.System.out;
+class FullMoons {
+      static int DAY_IM = 1000* 60*60*24;
+public static void main(String [] args) {
+      Calendar c = Calendar.getInstance();
+      c.set(2004,0,7,15,40);
+      long day1 = c.getTimeInMillis();
+      c.getTimeInMillis(day1);
+
+  for (int x = 0; x < 60; x++) {
+        day1 += (DAY_IM * 29.52);
+        c.SetTimeInMillis(day1);
+        out.println(String.format("full moon on %tc", c));
+      }
+    }
+}
+
+// Flow control
+// check for this outputs
+
+public class testExceptions {
+  public static void main(String [] args) {
+    String test = "no";
+    try {
+      System.out.println("start try");
+      doRisky(Test);
+      System.out.println("end try");
+    }
+    catch( ScaryException se) {
+      System.out.println("Scary Exception");
+    }
+    finally {
+      System.out.println("finally");
+    }
+    System.out.println("end of main");
+  }
+  static void doRisky(String test) throws ScaryException {
+    System.out.println("start risky");
+    if ("yes".equals(test)) {
+      throw new ScaryException();
+    }
+    System.out.println("end risky");
+    return;
+    )
+  }
+}
+
+/* output:
+ start try
+ start risky
+ end try
+ finally
+ end of main
+*/
+
+// Did we mention that a method can throw more than 1 exception
+
+// catching multiple exceptions
+
+
+
+public actor(String first, String last,  boolean good) {
+    firstname = first;
+    lastname = last;
+    goodActor = good;
+}
+  Actor a = new Actor("Arnold", "Schwarz", false);
+  // occurs after we construct the possible values for the actor class
+
+  // constructor is the code that runs when somebody says new on a class type
+
+  Duck d = new Duck();
+
+  // constructor must have the same name as the class and no return type
+
+  public Duck(int size) {
+
+  }
+
+/* If you dont put the constructor in  your class, the compiler auto puts in a constructor
+ The default constructor is a no arg constructor
+
+ You can have more than 1 constructor per class as long as the argument lists are different
+ . Having more than 1 constructor in a class means you have overloaded constructors
+*/
+
+public Duck() {
+
+}
+
+public Duck(int size) {
+
+}
+
+public Duck(String name) {
+
+}
+
+public Duck(String name, int size) {
+
+}
+
+// not all constructors have to be public
+// every object doesnt just hold its own constructor but also the ones from its superclass instance variables
+
+// making a hippo means making the animal and object parts too because we're extending the class
+public class Animal {
+  public Animal() {
+      Systerm.out.println("Making an animal");
+    }
+}
+
+public class Hippo extends Animal {
+  public Hippo() {
+    System.out.println("Making a hippo");
+  }
+}
+public class TestHippo {
+  public static void main (String [] args) {
+    System.out.println(''Starting... '');
+    Hippo h = new Hippo(); // new hippo object
+  }
+} // this prints the animal class first then the hippo class because we get the animal one off the stack first
+
+/* 1. Code from another class says new Hippo() and the Hippo() constructor goes into a stack first name
+    2. Hippo() invokes the superclass constructor pushes the Animal() constructor onto the top of the stack.
+    3. Animal() invokes the superclass constructor which pushes the object contructor onto the top of the stack since object is the superclass of animal
+    4. Object() completes and its stack frame is popped off the stack. Execution goes back to the Animal constructor and picks up at the line following Animal's
+    call to its superconstructor class
+*/
+// LOL so how do you invoke a superclass constructor
+
+public class Duck extends Animal {
+  int size;
+
+  public duck(int newSize) {
+    Animal(); // this isnt legal
+    size = newSize;
+  }
+}
+
+// cant call a superclass constructor with its name from the extended class
+
+public duck(int newSize) {
+  super();
+  size = newSize;
+}
+
+// Construct a Duck
+
+public class Duck {
+
+  public Duck() {
+      System.out.println("Quack")     // Constructor Code
+
+  public class UseADuck {
+        public static void main(String [] args)
+        {
+            Duck d = new Duck(); // this calls the duck constructor
+      }
+}
+}
+// superclass constructor must finish before the subclass constructor
+
+public Boop(int i) {
+  int size = 0;
+  super(); // this is wrong bc we cant put the call to super below anything else
+}
+
+// possible constructors for class Bop
+public Boop() {
+  super();
+}
+public Boop(int i)
+{
+  super();
+  size = i;
+}
+
+//superclass constructors with arguments
+
+public abstract class Animal {
+  private String name; // all animals have a name
+  public String getName() { // a getter method that Hippo inherits
+    return name;
+  }
+  public Animal(String theName) {
+    name = theName; // the constructor that takes the name and assigns it to the name instance var
+  }
+}
+public class Hippo extends Animal {
+  public Hippo(String name); // hippo constructor takes a name
+  super (name); // sends the name up the stack to the animal constructor
+}
+public class MakeHippo {
+  public static void main(String [] args) {
+    Hippo h = new Hippo("Buffy");
+    System.out.println(h.getName());
+    /* make a hippo, passing the name"Buffy" to the Hippo constructor.
+    Then call the Hippo's inherited getName(); */
+  }
+}
+
+/* invoking one overloaded constructor from another
+You know that you dont want duplicated code in different constructors so it makes more sense to
+put all the duplicated code into 1 constructor. You want whichever constructor is first invoked to call
+The Real Constructor and let The Real Constructor finish the job of construction.
+
+What one can do is just say this(). Or this(aString). This has to be at the top of the constructor so use this or super();
+*/
+class Mini extends Car {
+    Color color;
+
+    public Mini() {
+    this(Color.red); // the no-arg constructor supplies a default Color and calls the overloaded Real Constructor (the one that calls super())
+  }
+    public Mini(Color c) {
+      super("Mini"); // this is the real constructor that does the Real Work of initilizating the object
+      color = c;
+      // more initialization
+    }
+    public Mini(int size) {
+      this(Color.Red);
+      super(size); // we cant have this and super in the same constructor
+    }
+  }
+}
+
+/* now we know how an object is born, how long does an obj live
+
+Well this depends entirely on the life of references referring to it. If the reference is still alive,
+then the object is still alive on the heap.
+
+If the reference dies then the object dies.
+
+Therefore if the objects life depends on the reference variables life then how long does the
+var live?
+
+*/
+
+// a local variables lives only within the method that declared the variable
+public void read() {
+  int s = 42;
+}
+  // s can only be used within this specific method.
+  // when this method ends, s disappears for good.
+
+  // Variable 's' can be used only within the read() method. In other words, the variable
+  // is in scope only within its own method. No other code in the class can see 's'.
+
+// An instance variables lives as long as the object does
+public class Life {
+  int size;
+
+public void Shit(int s) { // takes in s
+  size = 42;
+}
+}
+
+/* In this example, size lives on even after the method ends but the value of s ends
+
+The difference between life and scope for variables
+
+Life
+    A local variable is alive as long as its stack frame is on the stack. In other words until the method completes.
+
+Scope
+  A local variable is in scope only within the method which it was declared. When its own method calls another, the variable is alive, but
+  not in scope until its method resumes. You can use a var only when its in scope.
+
+*/
+
+public void doStuff() {
+  boolean b = true;
+  go(4);
+}
+public void go(int s) {
+  int z = int s + 24;
+  crazy() {
+    // imagine more code here
+  }
+  public void crazy() {
+    char c = 'a';
+  }
+}
+}
+/* 1. DoStuff() goes on the stack
+    2. Go() plops on top of the stack
+    3. Crazy is pushed on top of the stack
+    'c' is now alive and in scope
+    go and doStuff are now alive but not in scope
+    4. Crazy finishes and c is dead and out of scope.
+        However now go is pushed to the top of the stack and z and s are in play
+        Variable b is still alive but out of scope
+*/
+// An object becomes eligible for GC when its last live reference dies
+// Three ways to get rid of an object's reference:
+// 1. The reference goes out of scope, permanently
+    void go() {
+      Life z = new Life();  // reference z dies at the end of the method
+    }
+// 2. The reference is assigned another object
+    Life z = new Life();
+    z = new Life(); // the first obj is abandoned when z is transferred to a new obj
+// 3. The reference is explicitly set to null
+    Life z = new Life();
+    z = null; // the first obj is abandoned when z is deprogrammed
+
+// Moving on to statics
+
+/* static method cant use non static instance vars
+Because a static method is called using the class as opposed to an instance reference
+a static method cant refer to any instance vars of the class. the static method doesnt know which instance's
+variable value to use.
+
+Static methods cant use non-static methods either. What do non-static methods do?
+They usually use instance variable state to affect the behaviour of the method.
+A getName() method returns the value of the name variable. Whose name? The object used
+to invoke the getName() method.
+
+*/
+
+public class Duck() {
+  private int size;
+  private int duckCount() = 0; // static duckCount var is initialized only when the class is first loaded
+  // not each time a new instance is made
+
+  public Duck() {
+    duckCount++; // now itll keep incrementing each time the duck constructor runs bc duckCount is static and doesnt reset to 0
+  }
+  public void getSize() {
+    size = s;
+  }
+  public int getSize(){
+    return size;
+  }
+  }
+
+/* Essentially static variables are shared and all instances of the same class share a single copy of the
+static variables.
+
+ initializing a static variable
+These are initialized when a class is loaded. A class is loaded because the JVM decides it's time to load it.
+Typically the JVM loads a class because somebodys trying to make a new instance of the class for the first time
+or use a static method or variable of the class. As a programmer you also have the option of telling the JVM
+to load a class but you're not likely to need to do that. In nearly all cases you're better off letting the JVM decide
+when to load the class. And there are two guarantees about static intialization:
+      1. static vars in a class are initialized before any object of that class can be created.
+      2. static vars in a class are intialized before any static method of the class runs.
+*/
+class Player {
+  static int playerCount = 0;
+  // the playerCount is initialized when the class is loaded. We explicitly intialized it to 0, but we dont need
+  // to since 0 is the default value fore ints. Static variables get default values just like instance vars.
+  private String name;
+  public Player(String n) {
+    name = n;
+    playerCount++;
+  }
+}
+public class PlayerTestDrive {
+  public static void main(String [] args) {
+    System.out.println(Player.playerCount);
+    Player one = new Player("Tiger Woods");
+    System.out.println(Player.playerCount); // we can access a static var just like a method- with the class name.
+
+  }
+}
+
+// static final vars are constants
+public static final double PI = 3.1415926535
+
+/* The variable is marked public so any code can access it
+The variable is marked static so you dont need an instance of class Math
+The variable is marked final because PI doesnt change
+Constant variable names should be in all caps.
+*/
+// Initialize a final static variable:
+
+public class Foo {
+  public static final int FOO_X = 25; // notice the naming convention, the name should be all uppercase
+}
+
+public class Bar {
+  public static final double BAR_Sign;
+
+// some method here  {
+    Bar_Sign = (double) Math.random();
+  }
+}
+/* final isnt just for static vars. You can use the keyword final to modify non-static variables too including instance variables, local variables
+and even method parameters. In each case, it means the same thing the value can't be changed. but you can also use final to stop someone from
+overriding a method or making a subclass.
+
+A static method should be called using the class name rather than the object reference variable
+Math.random() vs myFoo.go()
+
+A staticm method can be invoked without any instances of the method's class on the heap
+
+A static method is  not associated with a particular instance - only the class - so you cant access instance
+vars of its class. It wouldnt klnow which isntance's values to use.
+
+Non static final variables */
+
+class Foof {
+  final int size = 3; // now you cant  change size
+  final int whuffle;
+
+  Foof() {
+    whuffle = 42; // now you cant change whuffle as we said above that its final
+  }
+  void doStuff(final int x) {
+    // you cant change x
+  }
+  void doMore() {
+    final int z = 7;
+    // you cant change z
+  }
+}
+
+// final method
+class Poof { // a final method means you cant override the method
+  final void calcWhuffle() {
+    // important things
+    // that must never be overriden
+  }
+}
+
+
+final class MyMostPerfectClass {
+  // final class cannot be extended
+}
+
+// Examples of static from the math class
+Math.max()
+
+int x = Math.max(24,240); // returns 240
+double y = Math.max(90876.5, 90876.45) // picks the first
+
+/* wrapping a primitive
+
+when you need to treat a primitive like an obj, make sure to wrap it. Only really necessary if not java 5.0
+
+Wrappers have static utility methods too. Besides acting like a normal class, the wrapper have a bunch of really useful static methods.
+We've used one in this book before - Integer.parseInt()
+
+The parse methods take a tring and give you back a primitive value.
+
+Converting a String to a primitive value is easy:
+
+*/
+
+// Try catch methods, and using finally
+
+/* Finally: for the things you want to do no matter what
+
+A finally block is where you put things that have to occur regardless of an exception
+
+*/
+try {
+  turnOvenOn();
+  x.bake();
+} catch (BakingException ex) {
+  ex.PrintStackTrace();
+}
+finally {
+  turnOvenOff();
+}
+
+/* If there was no finally then you have to put the turnOvenOff() in both the try and catch
+because you have to turn off the oven no matter what. A finally block lets you put all your important cleanup code in one place instead
+of duplicating it like this */
+
+try {
+  turnOvenOn();
+  x.bake();
+  turnOvenOff();
+} catch (BakingException ex) {
+  ex.PrintStackTrace();
+  turnOvenOff();
+}
+
+/* Lets move on to some important technical concepts:
+
+If the try block fails (an exception), flow control immediately moves to the catch block. When the catch block completes,
+the finally block runs. When the finally block completes the rest of the method continues on.
+
+If the try block succeeds (no exception), flow control skips over the catch block and moves to the finally block.
+When the finally block completes, the rest of the method continues on.
+
+If the try or catch block has a return statement, finally will still run! Flow jumps to the finally, then back to the return.\
+
+*/
+
+public class TestExceptions {
+  public static void main(String [] args) {
+    String test = "no";
+    try {
+      System.out.println("start try");
+      doRisky(test);
+      System.out.println("end risky");
+    } catch ( ScaryException se) {
+      System.out.println("scary exception");
+    } finally {
+      System.out.println("finally");
+    }
+    System.out.println("end of main");
+  }
+
+static void doRisky(String test) throws ScaryException {
+  System.out.println("start risky");
+  if("yes".equals(test)) {
+    throw new ScaryException();
+  }
+  System.out.println("end risky");
+  return;
+    }
+  }
+}
+
+/* what do you think the output of this code would be?
+Output when test ="no"; and output when test = "yes"
+
+Did we mention that a method can throw more than one exception
+
+A method can throw multiple exception if it darn well needs to. But a method's declaration must declare all the
+checked exceptions it can throw ( although if two or more exceptions have a common superclass, the method can declare just the
+superclass.)
+
+Catching multiple exceptions
+  The compiler will make sure that you've handled all the checked exceptiuons thrown by the method you're calling.
+  Stack the catch blocks under the try, one after the other. Sometimes the order in which you stack the catch blocks matters,
+  but we'll get to that later.
+
+  */
+
+  public class Laundry {
+    public void doLaundry() throws PantsException, LingerieException {
+      // code that could throw either exception
+    }
+  }
+  public class Foo {
+      public void go () {
+          Laundry laundry = new Laundry();
+                try {
+           Laundry.doLaundry();
+                } catch (PantsException pex) {
+           // recovery code
+                } catch (LingerieException lex) {
+          // recovery code
+                }
+            }
+      }
+
+    // Exceptions are polymorphic
+    /* Exceptions are objects and the only thing that makes it special is that it can be
+    thrown. Exceptions can be referred polymorphically which means that a LingerieException object
+    can be referred to a ClothingException reference.
+
+    The benefit for exceptions is that a method doesnt have to explicitly declare every possible exception it might throw;
+    it can declare a superclass of the exceptions. Same thing with catch blocks -- you dont have to write a catch for each possible
+    exception as long as the catch you have can handle any exception thrown.
+
+    The benefit for exceptions is that a method doesnt have to explicity declare every possible
+    exception it might throw; it can declare a superclass of exceptions.
+
+  */
+
+  //  You can declare exceptions using a supertype of the exceptions you throw.
+
+  public void doLaundry() throws ClothingException {
+    /* Declaring a ClothingException lets you throw any subclass ofd ClothingException. That means doLaundry() can
+    a PantsException, LingerieException, TeeShirt Exception, and DressShirtException without explictly declaring them
+    individually.
+  }
+
+  */
+//  you can catch exception using a supertype of the exceptions thrown in this case both clothingexception and shirts exception
+  try {
+    Laundry.doLaundry();
+  } catch(ClothingException cex) {
+    // recovery code
+  }
+
+  try Laundry.doLaundry(); {
+
+  } catch(ShirtException sex) {
+    // recovery code
+  }
+
+  /*  write a different catch block for each exception you need to handle uniquely.
+  For example if your code deals with (or recovers from) a TeeShirtException differently
+  than it handles a LingerieException, write a catch block for each type. but if you treast all
+  other types of ClothingExceptions the same way, then add a ClothingException catch to handle
+  the rest.
+
+  */
+
+  try {
+    Laundry.doLaundry();
+  } catch(TeeShirtException tex) {
+    //  recovery from TeeShirtException
+  } catch (LingerieException lex) {
+    // recovery from LingerieException
+
+  } catch(ClothingException cex) { // all other exceptions are caught here
+    //  recovery from all others
+  }
+
+/* multiple catch blocks must be ordered from smallest to biggest
+
+The higher up the inheritance tree, the bigger the catch 'basket'. As you move down the inheritance tree,
+toward more and more specialized Exception classes, the catch basket is smaller. It's just plain old polymorphism.
+
+The mother of all catch arguments is type Exception, it will catch any exception, including runtime exceptions,
+so you wouldnt use it outside of testing.
+
+*/
