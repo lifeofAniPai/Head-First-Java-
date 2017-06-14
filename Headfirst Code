@@ -498,8 +498,7 @@ public Duck(String name, int size) {
 
 }
 
-// not all constructors have to be public
-// every object doesnt just hold its own constructor but also the ones from its superclass instance variables
+// not all constructors have to be public, every object doesnt just hold its own constructor but also the ones from its superclass instance variables
 
 // making a hippo means making the animal and object parts too because we're extending the class
 public class Animal {
@@ -1011,6 +1010,83 @@ The higher up the inheritance tree, the bigger the catch 'basket'. As you move d
 toward more and more specialized Exception classes, the catch basket is smaller. It's just plain old polymorphism.
 
 The mother of all catch arguments is type Exception, it will catch any exception, including runtime exceptions,
-so you wouldnt use it outside of testing.
+so you wouldnt use it outside of testing bc you want to know what exceptions you're catching.
+
+You can't put bigger baskets within smaller ones
+Well you can but it won't compile. Catch blocks are not like overloaded methods where the best match is picked. With catch blocks, the JVM
+simply starts at the first one and works its way down until it finds a catch that's broad enough or high enough on the inheritance tree to handle the exception.
+If youre just using the extremely broad catch(Exception ex), the compiler knows theres no point going deeper.
+
+don't do this - shown below
+*/
+try {
+  Laundry.doLaundry();
+} catch(ClothingException cex) {
+  //  recovery for cex
+} catch(LingerieException lex) {
+  // recovery for lex
+} catch(ShirtException sex) {
+  // recovery for sex
+}
+
+// sharpen your pencil and create a try-catch that accurately gets the inheritance scheme
+
+try {
+  x.doRisky();
+} catch(FooException FooEx) {
+  // recovery for FooEx
+} catch(BarException BarEx) {
+  // recovery for BarEx
+
+
+/* When you dont want to handle an exception, just duck it.
+If you dont want to handle an exception, you can duck it by declaring it.
+When you call a risky method, the compiler needs you to acknowledge it. Most of the time, that means
+wrapping the risky call in a try/catch. But you have another alternative, simply duck it and let
+and let the method that called you catch the exception.
+
+It's easy all you have to do is declare that you throw the exception. Even though technically you arent
+the one doing the throwing, it doesnt matter. you're still the one letting the exception whiz right on by.
+
+But if you duck an exception, then you don't have a try/ catch, so what happens when the risky method
+(doLaundry()) does throw the exception?
+
+When a method throws an exception, that method is popped off the stack immediately, and the
+exception is thrown to the next method down the stack - the caller. But if the caller is a ducker, then theres no catch for it
+so the caller pops off the stack immediately and the exception is thrown to the next method and so on.. where does it end?
+You'll see a little later.
 
 */
+
+public void foo() throws ReallyBadException {
+  //  call risky method w/out try/catch
+  Laundry.doLaundry();
+}
+
+/* handle or declare. It's the law.
+So now we've seen both ways to satisfy the compiler when you call a risky(exception-throwing) method
+1. Handle
+Wrap the risky call in a try/catch */
+try {
+  Laundry.doLaundry();
+} catch (ClothingException cex) {
+  //  recovery code
+}
+//  has to be big enough to handle any exceptions that doLaundry() might throw. Or else the compiler will plain.
+
+// Declare (Duck it) and declare that your method throws the same exceptions as the risky method you're calling.
+void foo() throws ClothingException {
+  Laundry.doLaundry();
+}
+public class Washer {
+  Laundry laundry = new Laundry();
+
+  public void foo() throws ClothingException {
+    laundry.doLaundry();
+  }
+  public static void main(String [] args) {
+    Washer a = new Washer();
+    a.foo(); // because the foo() method ducks the ClothingException thrown by doLaundry(), main() has, to wrap foo in a try / catch
+
+  }
+}
