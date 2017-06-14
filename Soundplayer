@@ -1,0 +1,50 @@
+import java.sound.midi.*;
+public class MiniMiniMusicApp {
+  public static void Main ([] String [] args) {
+    MiniMiniMusicApp mini = new MiniMiniMusicApp();
+    mini.play();
+  }
+  // close main
+
+  public void play() {
+    try {
+      Sequencer player = MidiSystem.getSequencer();
+      //  get a sequencer and open it as a sequencer isnt born open
+      player.open();
+
+      Sequence seq = new Sequence(Sequence.PPQ, 4)
+
+      Track track = seq.createTrack(); // ask the sequence for a track
+
+      ShortMessage a = new ShortMessage();
+      a.setMessage(144,1,44,100);
+      MidiEvent noteOn = new MidiEvent(a,1);
+      track.add(noteOn);
+
+      ShortMessage b = new ShortMessage();
+      b.setMessage(128.1, 44, 100);
+      MidiEvent noteOff = new MidiEvent(b,16);
+      track.add(noteOff);
+
+      player.setSequence(seq); // give the sequence to the sequencer (like putting the CD into the CD player)
+
+      player.start(); // start() the Sequencer like pushing play
+    } catch(Exception ex)
+          ex.printStackTrace();
+  }
+  }
+
+
+// making a MidiEvent (song data)
+
+// make a message
+ShortMessage a = new ShortMessage();
+
+// Put the Instruction in the Message
+a.setMessage(144,1,44,100);
+
+// Make a new MidiEvent using the Message
+MidiEvent noteOn = new MidiEvent(a,1); // the intructions are in the message, but the MidiEvent adds the moment  in time when the instruction should be triggered.
+
+// add the MidiEvent to the track
+track.add(noteOn); // a track holds all the MidiEvent objects
