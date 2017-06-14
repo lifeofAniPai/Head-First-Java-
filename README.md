@@ -1,6 +1,3 @@
-# Head-First-Java-
-# Head-First-Java-
-# Head-First-Java-
-# Head-First-Java-
-# Head-First-Java-
-# Head-First-Java-
+# Head First
+
+basic notes from the book
